@@ -1,13 +1,15 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Button from './components/Button';
+import AcceptButton from './components/AcceptButton';
+import RejectButton from './components/RejectButton';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Button></Button>
+        <AcceptButton></AcceptButton>
+        <RejectButton></RejectButton>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload!
