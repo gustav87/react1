@@ -1,11 +1,7 @@
 .Button {
   padding: 20px;
   margin: 5px;
-  display: inline-block;
-}
-
-span {
-  user-select: none;
+  position: relative;
 }
 
 .Button:hover {
@@ -16,6 +12,14 @@ span {
 .Button:active {
   filter: brightness(0.7);
   cursor: pointer;
+}
+
+.Button div {
+  user-select: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .green {

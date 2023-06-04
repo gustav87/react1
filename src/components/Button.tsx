@@ -13,7 +13,7 @@ function Button({ color, size = 100, text }: ButtonProps) {
   }
   return (
     <div className={`Button ${color}`} style={styles}>
-      <span>{text}</span>
+      <div>{text}</div>
     </div>
 
     // <div className={`Button ${color}`} style={{width: `${size}px`, height: `${size/4}px`}}></div>
