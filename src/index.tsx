@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage";
 import './index.css';
 import App from './App';
+import Frontpage from '@/components/Frontpage';
 import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
@@ -13,15 +14,23 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
+        path: "/",
+        element: <Frontpage/>,
+      },
+      {
+        path: "/projects",
+        element: <div>Projects</div>,
+      },
+      {
+        path: "/contact",
+        element: <div>Contact me</div>,
+      },
+      {
         path: "/hi",
         element: <div>Hi there!</div>,
-      }
+      },
     ]
-  },
-  {
-    path: "/lol",
-    element: <div>Hello world!</div>,
-  },
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
