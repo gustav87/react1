@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
 import logo from './logo.svg';
 import './App.css';
-import AcceptButton from './components/AcceptButton';
-import RejectButton from './components/RejectButton';
+import AcceptButton from '@/components/AcceptButton';
+import RejectButton from '@/components/RejectButton';
 
 function App() {
   return <>
