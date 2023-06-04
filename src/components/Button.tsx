@@ -12,8 +12,8 @@ function Button({ color, size = 100, text }: ButtonProps) {
     height: `${size/4}px`
   }
   return (
-    <div className={`Button ${color}`} style={styles}>
-      <div>{text}</div>
+    <div className={`Button ${color} text-2xl font-bold`} style={styles}>
+      <div className={"underline"}>{text}</div>
     </div>
 
     // <div className={`Button ${color}`} style={{width: `${size}px`, height: `${size/4}px`}}></div>
