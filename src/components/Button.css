@@ -1,5 +1,21 @@
 .Button {
   padding: 20px;
+  margin: 5px;
+  display: inline-block;
+}
+
+span {
+  user-select: none;
+}
+
+.Button:hover {
+  filter: brightness(1.5);
+  cursor: pointer;
+}
+
+.Button:active {
+  filter: brightness(0.7);
+  cursor: pointer;
 }
 
 .green {
@@ -7,7 +23,7 @@
 }
 
 .red {
-  background-color: red;
+  background-color: firebrick;
 }
 
 .blue {

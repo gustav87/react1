@@ -3,7 +3,7 @@ import Button from './Button';
 
 class RejectButton extends Component {
   render() {
-    return <Button color={"red"}></Button>;
+    return <Button color={"red"} text="Cancel"></Button>;
   }
 }
 
