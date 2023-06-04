@@ -5,7 +5,7 @@ import AcceptButton from './components/AcceptButton';
 import RejectButton from './components/RejectButton';
 
 function App() {
-  return (
+  return <>
     <div className="App">
       <header className="App-header">
         <AcceptButton></AcceptButton>
@@ -24,7 +24,7 @@ function App() {
         </a>
       </header>
     </div>
-  );
+  </>
 }
 
 export default App;
