@@ -1,4 +1,5 @@
 import React from 'react';
+import { Outlet } from "react-router-dom";
 import logo from './logo.svg';
 import './App.css';
 import AcceptButton from './components/AcceptButton';
@@ -8,6 +9,7 @@ function App() {
   return <>
     <div className="App">
       <header className="App-header">
+        <Outlet />
         <AcceptButton></AcceptButton>
         <RejectButton></RejectButton>
         <img src={logo} className="App-logo" alt="logo" />
