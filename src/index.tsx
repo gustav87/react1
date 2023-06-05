@@ -4,7 +4,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage";
 import './index.css';
 import App from './App';
-import Frontpage from '@/components/Frontpage';
+import Frontpage from '@/views/Frontpage';
+import Projects from '@/views/Projects';
 import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/projects",
-        element: <div>Projects</div>,
+        element: <Projects/>,
       },
       {
         path: "/contact",
