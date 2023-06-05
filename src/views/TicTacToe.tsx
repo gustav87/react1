@@ -1,4 +1,4 @@
-import constants from "@/constants";
+const backend_url = import.meta.env.VITE_BACKEND_URL;
 
 function TicTacToe() {
   return <>
@@ -8,16 +8,16 @@ function TicTacToe() {
 }
 
 function handleClick() {
-  console.log(constants.backend_url);
+  console.log(backend_url);
 }
 
 function send() {
-  fetch(`${constants.backend_url}/api/test`)
+  fetch(`${backend_url}/api/test`)
     .then(response => {
       if (response.ok) {
         return response.json();
       } else {
-        this.searchResult = "Something went wrong with the database.";
+        console.error("Something went wrong with the database.");
       }
     })
     .then(res => {
@@ -26,7 +26,7 @@ function send() {
       }
     })
     .catch(err => {
-      console.error(err)
+      console.error(err);
     })
 }
 
