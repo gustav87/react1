@@ -1,30 +1,16 @@
+import constants from "@/constants";
+import { Outlet } from "react-router-dom";
+
 function Projects() {
-  return (
-    <div>Projects!</div>
-  );
+  return <>
+    <h1 className="text-4xl mb-10" onClick={handleClick}>Projects!</h1>
+    <a href="/projects/tictactoe" className="hover:text-blue-800">Tic Tac Toe</a>
+    <Outlet/>
+  </>
 }
 
-function submitSearchDbForm() {
-  const queryString = this.filter ? `?filter=${this.filter}` : '';
-
-  fetch(`${constants.backend_url}/api/guests${queryString}`)
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        this.searchResult = "Something went wrong with the database.";
-      }
-    })
-    .then(res => {
-      if (res) {
-        this.showTable = true
-        this.documents = res
-      }
-    })
-    .catch(err => {
-      this.searchResult = "Something went wrong with the backend.";
-      console.error(err)
-    })
+function handleClick() {
+  console.log(constants.backend_url);
 }
 
 export default Projects;

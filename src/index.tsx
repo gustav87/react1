@@ -6,6 +6,7 @@ import './index.css';
 import App from './App';
 import Frontpage from '@/views/Frontpage';
 import Projects from '@/views/Projects';
+import TicTacToe from '@/views/TicTacToe';
 import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
@@ -21,6 +22,12 @@ const router = createBrowserRouter([
       {
         path: "/projects",
         element: <Projects/>,
+        children: [
+          {
+            path: "/projects/tictactoe",
+            element: <TicTacToe/>,
+          },
+        ]
       },
       {
         path: "/contact",
