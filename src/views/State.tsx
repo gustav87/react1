@@ -35,7 +35,7 @@ function State() {
     setIndex(index + 1);
   }
 
-  function setColor(newColor) {
+  function setColor(newColor: string) {
     console.log(newColor);
     setColorState(newColor);
   }
