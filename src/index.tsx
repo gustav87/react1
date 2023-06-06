@@ -7,6 +7,7 @@ import App from './App';
 import Frontpage from '@/views/Frontpage';
 import Projects from '@/views/Projects';
 import TicTacToe from '@/views/TicTacToe';
+import State from '@/views/State';
 import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
           {
             path: "/projects/tictactoe",
             element: <TicTacToe/>,
+          },
+          {
+            path: "/projects/state",
+            element: <State/>,
           },
         ]
       },
