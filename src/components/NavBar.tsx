@@ -1,5 +1,6 @@
 import './NavBar.css';
 import { routes } from '@/models/routes';
+import { Link } from "react-router-dom";
 
 function NavBar() {
   const navItemStyle = "p-2 hover:text-blue-800 uppercase font-bold text-white hover:text-white hover:bg-sky-700";
@@ -9,19 +10,19 @@ function NavBar() {
     <div className="bg-zinc-700 mb-5">
       <ul className="flex items-center h-20">
         <li className="mr-12 ml-4">
-          <a href={routes.HOME}><img src="/klaus.png" width="70px" className="klaus"/></a>
+          <Link to={routes.HOME}><img src="/klaus.png" width="70px" className="klaus"/></Link>
         </li>
         <li className="mr-6">
-          <a className={navItemStyle} href={routes.PROJECTS}>Projects</a>
+          <Link to={routes.PROJECTS} className={navItemStyle}>Projects</Link>
         </li>
         <li className="mr-6">
-          <a className={`${navItemStyle} ${getPathName().includes("contact") ? "bg-sky-700" : ""}`} href={routes.CONTACT}>Contact</a>
+          <Link to={routes.CONTACT} className={`${navItemStyle} ${getPathName().includes("contact") ? "bg-sky-700" : ""}`}>Contact</Link>
         </li>
         <li className="mr-6">
-          <a className={navItemStyle} href={routes.LOGIN}>Log in</a>
+          <Link to={routes.LOGIN} className={navItemStyle}>Log in</Link>
         </li>
         <li className="mr-6">
-          <a className="text-gray-400 cursor-not-allowed uppercase font-bold">Disabled</a>
+          <Link to={"#"} className="text-gray-400 cursor-not-allowed uppercase font-bold">Disabled</Link>
         </li>
       </ul>
     </div>
