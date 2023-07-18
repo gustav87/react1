@@ -11,7 +11,27 @@ function handleClick() {
   console.log(backend_url);
 }
 
-function send() {
+async function send() {
+  try {
+    const res = await fetch(`${backend_url}/api/tests`);
+    const json = await res.json();
+    console.log(json);
+  } catch (e: unknown) {
+    console.error(e);
+  }
+}
+
+async function send_await_without_try_catch() {
+  const res = await fetch(`${backend_url}/api/tests`);
+  if (res.ok) {
+    const json = await res.json();
+    console.log(json);
+  } else {
+    console.error("lol");
+  }
+}
+
+function send_promise() {
   fetch(`${backend_url}/api/test`)
     .then(response => {
       if (response.ok) {
