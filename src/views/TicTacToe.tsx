@@ -13,7 +13,7 @@ function handleClick() {
 
 async function send() {
   try {
-    const res = await fetch(`${backend_url}/api/tests`);
+    const res = await fetch(`${backend_url}/api/test`);
     const json = await res.json();
     console.log(json);
   } catch (e: unknown) {

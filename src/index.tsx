@@ -9,38 +9,40 @@ import Projects from '@/views/Projects';
 import TicTacToe from '@/views/TicTacToe';
 import State from '@/views/State';
 import reportWebVitals from './reportWebVitals';
+import { routes } from '@/models/routes';
+import Login from './views/Login';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: routes.HOME,
     element: <App/>,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/",
+        path: routes.HOME,
         element: <Frontpage/>,
       },
       {
-        path: "/projects",
+        path: routes.PROJECTS,
         element: <Projects/>,
         children: [
           {
-            path: "/projects/tictactoe",
+            path: routes.PROJECTS_TICTACTOE,
             element: <TicTacToe/>,
           },
           {
-            path: "/projects/state",
+            path: routes.PROJECTS_STATE,
             element: <State/>,
           },
         ]
       },
       {
-        path: "/contact",
+        path: routes.CONTACT,
         element: <div>Contact me</div>,
       },
       {
-        path: "/hi",
-        element: <div>Hi there!</div>,
+        path: routes.LOGIN,
+        element: <Login/>,
       },
     ]
   }
