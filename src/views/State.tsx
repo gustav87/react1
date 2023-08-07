@@ -1,3 +1,4 @@
+import './State.css';
 import { sculptureList } from '@/data/stateData.js';
 import { useState } from 'react';
 
@@ -6,12 +7,19 @@ function State() {
   const [colorState, setColorState] = useState("transparent");
   let sculpture = sculptureList[index];
 
+  const resetState = () => {
+    console.log(colorState);
+    setColorState("transparent");
+  }
+
   return <>
     <div className="flex justify-around w-2/4">
       <div className="w-2/4">
-        <button className="text-red-500 hover:text-red-300 block" onClick={() => setColor("red")}>Red state</button>
-        <button className="text-green-500 hover:text-green-300 block" onClick={() => setColor("green")}>Green state</button>
-        <div className={`mt-5 w-20 bg-transparent text-white text-center cursor-default border-2 bg-${colorState}-400`} onClick={() => console.log(colorState)}>State</div>
+        <button className="text-red-500 hover:text-red-300 block" onClick={() => setColorState("red")}>Set red state</button>
+        <button className="text-green-500 hover:text-green-300 block" onClick={() => setColorState("green")}>Set green state</button>
+        <div className={`mt-5 px-2 inline-block text-white text-center cursor-default border-2 ${colorState}`} onClick={resetState}>
+          <p>{colorState}</p>
+        </div>
       </div>
       <div className="w-2/4">
         <button className="border-2 px-2 hover:text-black" onClick={incrementIndex}>Next</button>
@@ -32,11 +40,6 @@ function State() {
       return;
     }
     setIndex(index + 1);
-  }
-
-  function setColor(newColor: string) {
-    console.log(newColor);
-    setColorState(newColor);
   }
 }
 
