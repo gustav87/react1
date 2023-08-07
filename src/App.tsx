@@ -11,7 +11,7 @@ function App() {
     window.addEventListener("resize", updateDimensions);
     return () =>
       window.removeEventListener("resize", updateDimensions);
-   }, [])
+  }, [])
 
   const updateDimensions = () => {
     const width = window.innerWidth;
