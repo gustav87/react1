@@ -1,17 +1,20 @@
+import Board from '@/components/TicTacToe/Board';
+import { useState } from 'react';
 const backend_url = import.meta.env.VITE_BACKEND_URL;
 
 function TicTacToe() {
+  const [reset, setReset] = useState<boolean>(false);
   return <>
-    <h1 className="text-2xl mb-5" onClick={handleClick}>Here's a Tic Tac Toe game I made!</h1>
-    <div onClick={send}>Test backend</div>
+
+    <h1 className="text-2xl mb-5">A Tic Tac Toe game following the official React tutorial.</h1>
+    <Board reset={reset}></Board>
+    <button className="m-3 border px-2" onClick={() => setReset(!reset)}>Reset Game</button>
+    <p className="text-sm cursor-pointer" onClick={send}>Test backend</p>
   </>
 }
 
-function handleClick() {
-  console.log(backend_url);
-}
-
 async function send() {
+  console.log(backend_url);
   try {
     const res = await fetch(`${backend_url}/api/test`);
     const json = await res.json();
