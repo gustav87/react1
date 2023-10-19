@@ -8,6 +8,7 @@ import Frontpage from '@/views/Frontpage';
 import Projects from '@/views/Projects';
 import TicTacToe from '@/views/TicTacToe';
 import State from '@/views/State';
+import S3 from './views/S3';
 import reportWebVitals from './reportWebVitals';
 import { routes } from '@/models/routes';
 import Login from './views/Login';
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
           {
             path: routes.PROJECTS_STATE,
             element: <State/>,
+          },
+          {
+            path: routes.PROJECTS_S3,
+            element: <S3/>,
           },
         ]
       },

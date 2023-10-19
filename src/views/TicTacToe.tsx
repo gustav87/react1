@@ -9,14 +9,26 @@ function TicTacToe() {
     <h1 className="text-2xl mb-5">A Tic Tac Toe game following the official React tutorial.</h1>
     <Board reset={reset}></Board>
     <button className="m-3 border px-2" onClick={() => setReset(!reset)}>Reset Game</button>
-    <p className="text-sm cursor-pointer" onClick={send}>Test backend</p>
+    <p className="text-sm cursor-pointer" onClick={sendTestBackendWeather}>Test backend Weather</p>
+    <p className="text-sm cursor-pointer" onClick={sendTestBackend1}>Test backend 1</p>
   </>
 }
 
-async function send() {
-  console.log(backend_url);
+async function sendTestBackendWeather() {
+  const url = `${backend_url}/api/test/weather`;
   try {
-    const res = await fetch(`${backend_url}/api/test`);
+    const res = await fetch(url);
+    const json = await res.json();
+    console.log(json);
+  } catch (e: unknown) {
+    console.error(e);
+  }
+}
+
+async function sendTestBackend1() {
+  const url = `${backend_url}/api/test/test1`;
+  try {
+    const res = await fetch(url);
     const json = await res.json();
     console.log(json);
   } catch (e: unknown) {
@@ -54,4 +66,3 @@ function send_promise() {
 }
 
 export default TicTacToe;
-

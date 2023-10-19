@@ -7,6 +7,7 @@ function Projects() {
     <div className="flex justify-around w-1/4 mb-10">
       <Link to={routes.PROJECTS_TICTACTOE} className="hover:text-blue-600">Tic Tac Toe</Link>
       <Link to={routes.PROJECTS_STATE} className="hover:text-blue-600">State</Link>
+      <Link to={routes.PROJECTS_S3} className="hover:text-blue-600">Amazon S3</Link>
     </div>
     <Outlet/>
   </>
