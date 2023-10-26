@@ -12,6 +12,7 @@ import S3 from './views/S3';
 import reportWebVitals from './reportWebVitals';
 import { routes } from '@/models/routes';
 import Login from './views/Login';
+import Alibaba from './views/Alibaba';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
           {
             path: routes.PROJECTS_S3,
             element: <S3/>,
+          },
+          {
+            path: routes.PROJECTS_ALIBABA,
+            element: <Alibaba/>,
           },
         ]
       },
