@@ -3,3 +3,8 @@ export type CloudFile = {
   size: number;
   lastModified: Date;
 }
+
+export type UploadFileRequest = {
+  name: string;
+  content: string;
+}

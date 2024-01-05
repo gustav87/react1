@@ -6,13 +6,12 @@ const backend_url = import.meta.env.VITE_BACKEND_URL;
 function Alibaba() {
   const [files, setFiles] = useState([] as CloudFile[]);
   const [fileToUpload, setFileToUpload] = useState<File | undefined>(undefined);
-
-  useEffect(() => {
-    listAlibabaFiles();
-  }, [])
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const token = window.sessionStorage.getItem("token");
 
   return <>
     <div className="flex justify-around w-2/4">
+      <p className="cursor-pointer react1-clickable" onClick={listAlibabaFiles}>List Alibaba files</p>
     </div>
     <div className="mt-6 flex justify-around w-2/4">
       <div>
@@ -20,14 +19,17 @@ function Alibaba() {
           <input type="file" onChange={(e) => setFileToUpload(e.target.files?.[0])}/>
         </div>
         <button className="text-red-500 border p-2 mt-2" onClick={uploadToAlibaba}>Upload File</button>
+        <div className="mt-2">
+          { errorMessage }
+        </div>
       </div>
       <div>
-        <div className="text-blue-500">The following files are available on OSS. Click to download.</div>
+        <div className="text-green-500">The following files are available on OSS. Click to download.</div>
         <div>
           {files.map((file) => {
-            return <div className="flex" key={file.name}>
-              <div className="cursor-pointer mr-2" onClick={() => downloadFromAlibaba(file.name)}>{file.name}</div>
-              <button className="fileNamesborder p-1" onClick={() => deleteFileOnAlibaba(file.name)}>Delete</button>
+            return <div className="flex justify-content-center" key={file.name}>
+              <div className="cursor-pointer react1-clickable mr-5" onClick={() => downloadFromAlibaba(file.name)}>{file.name}</div>
+              <button className="hover:text-red-500 active:text-red-800" onClick={() => deleteFileOnAlibaba(file.name)}>Delete</button>
             </div>
           })}
         </div>
@@ -36,19 +38,24 @@ function Alibaba() {
   </>
 
   async function listAlibabaFiles() {
-    const url = `${backend_url}/api/alibaba`;
+    const url = `${backend_url}/api/alibaba?token=${token}`;
     try {
       const res = await fetch(url);
-      const files: CloudFile[] = await res.json();
-      console.log(files);
-      setFiles(files)
+      if (res.ok) {
+        const files: CloudFile[] = await res.json();
+        setFiles(files);
+      }
+      else {
+        const errorMessage = await res.text();
+        setErrorMessage(errorMessage);
+      }
     } catch (e: unknown) {
       console.error(e);
     }
   }
 
   async function uploadToAlibaba() {
-    const url = `${backend_url}/api/alibaba/upload`;
+    const url = `${backend_url}/api/alibaba/upload?token=${token}`;
     if (!fileToUpload) return;
 
     try {
@@ -61,7 +68,7 @@ function Alibaba() {
         const base64content = content?.split("base64,")[1];
         const data = {name: fileToUpload.name, content: base64content};
 
-        await fetch(url, {
+        const res = await fetch(url, {
           method: 'POST',
           body: JSON.stringify(data),
           headers: {
@@ -69,6 +76,13 @@ function Alibaba() {
             "Content-Type": "application/json",
           },
         });
+        if (res.ok) {
+          await listAlibabaFiles();
+        }
+        else {
+          const errorMessage = await res.text();
+          setErrorMessage(errorMessage);
+        }
       }
     } catch (e: unknown) {
       console.error(e);
@@ -76,7 +90,7 @@ function Alibaba() {
   }
 
   async function downloadFromAlibaba(fileName: string) {
-    const url = `${backend_url}/api/alibaba/download/${fileName}`;
+    const url = `${backend_url}/api/alibaba/download/${fileName}?token=${token}`;
     try {
       window.open(url);
     } catch (e: unknown) {
@@ -85,15 +99,22 @@ function Alibaba() {
   }
 
   async function deleteFileOnAlibaba(fileName: string) {
-    const url = `${backend_url}/api/alibaba/${fileName}`;
+    const url = `${backend_url}/api/alibaba/${fileName}?token=${token}`;
     try {
-      await fetch(url, {
+      const res = await fetch(url, {
         method: 'DELETE',
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
       });
+      if (res.ok) {
+        await listAlibabaFiles();
+      }
+      else {
+        const errorMessage = await res.text();
+        setErrorMessage(errorMessage);
+      }
     } catch (e: unknown) {
       console.error(e);
     } 
