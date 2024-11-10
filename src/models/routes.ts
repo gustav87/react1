@@ -6,6 +6,7 @@ export enum routes {
   PROJECTS_S3 = "/projects/s3",
   PROJECTS_ALIBABA = "/projects/alibaba",
   PROJECTS_PAYPAL = "/projects/paypal",
+  PROJECTS_TEST = "/projects/test",
   CONTACT = "/contact",
-  LOGIN = "/login"
+  LOGIN = "/login",
 };

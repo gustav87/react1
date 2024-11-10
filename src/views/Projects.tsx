@@ -10,6 +10,7 @@ function Projects() {
       <Link to={routes.PROJECTS_S3} className="cursor-pointer react1-clickable">Amazon S3</Link>
       <Link to={routes.PROJECTS_ALIBABA} className="cursor-pointer react1-clickable">Alibaba OSS</Link>
       <Link to={routes.PROJECTS_PAYPAL} className="cursor-pointer react1-clickable">Paypal</Link>
+      <Link to={routes.PROJECTS_TEST} className="cursor-pointer react1-clickable">Test</Link>
     </div>
     <Outlet/>
   </>

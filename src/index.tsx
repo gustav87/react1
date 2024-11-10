@@ -14,6 +14,7 @@ import { routes } from '@/models/routes';
 import Login from './views/Login';
 import Alibaba from './views/Alibaba';
 import Paypal from './views/Paypal';
+import Test from './views/Test';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
           {
             path: routes.PROJECTS_PAYPAL,
             element: <Paypal/>,
+          },
+          {
+            path: routes.PROJECTS_TEST,
+            element: <Test/>,
           },
         ]
       },
