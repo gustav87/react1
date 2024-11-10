@@ -6,7 +6,7 @@ WORKDIR /app
 # copy only the relevant files, and especially do not copy node_modules.
 COPY package.json package-lock.json ./
 RUN npm install --frozen-lockfile
-COPY index.html tsconfig.json vite.config.ts tailwind.config.js postcss.config.js vite-env.d.ts ./
+COPY index.html tsconfig.json vite.config.ts tailwind.config.js postcss.config.js vite-env.d.ts .env.production ./
 ADD src /app/src
 ADD public /app/public
 
