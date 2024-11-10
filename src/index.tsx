@@ -13,6 +13,7 @@ import reportWebVitals from './reportWebVitals';
 import { routes } from '@/models/routes';
 import Login from './views/Login';
 import Alibaba from './views/Alibaba';
+import Paypal from './views/Paypal';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
           {
             path: routes.PROJECTS_ALIBABA,
             element: <Alibaba/>,
+          },
+          {
+            path: routes.PROJECTS_PAYPAL,
+            element: <Paypal/>,
           },
         ]
       },

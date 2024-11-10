@@ -1,5 +1,5 @@
 import { CloudFile } from '@/models/cloudStorage';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const backend_url = import.meta.env.VITE_BACKEND_URL;
 
