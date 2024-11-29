@@ -6,10 +6,10 @@ pool:
 
 steps:
 - script: echo Hello, world!
-  displayName: 'Run a one-line script'
+  displayName: 'hello world'
 
 - task: Npm@1
-  displayName: install
+  displayName: npm install
   inputs:
     command: 'install'
 
