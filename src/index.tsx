@@ -9,7 +9,6 @@ import Projects from '@/views/Projects';
 import TicTacToe from '@/views/TicTacToe';
 import State from '@/views/State';
 import S3 from './views/S3';
-import reportWebVitals from './reportWebVitals';
 import { routes } from '@/models/routes';
 import Login from './views/Login';
 import Alibaba from './views/Alibaba';
@@ -74,8 +73,3 @@ root.render(
     <RouterProvider router={router} />
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
