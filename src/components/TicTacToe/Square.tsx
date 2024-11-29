@@ -1,5 +1,4 @@
 import './Square.css';
-import { Children } from 'react';
 import { PropsWithChildren } from 'react';
 
 export interface SquareProps {
@@ -8,7 +7,7 @@ export interface SquareProps {
   index: number;
 }
 
-function Square({children, value, onSquareClick, index}: PropsWithChildren<SquareProps>) {
+function Square({value, onSquareClick, index}: PropsWithChildren<SquareProps>) {
   const handleClick = () => {
     if (value) return; // Do not change the value if square is already occupied by a marker.
     onSquareClick(index);

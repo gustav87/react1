@@ -1,11 +1,10 @@
-const backend_url = import.meta.env.VITE_BACKEND_URL;
 import { useState } from 'react';
+
+const backend_url = import.meta.env.VITE_BACKEND_URL as string;
 
 function Paypal() {
   // const token = window.sessionStorage.getItem("token");
-  const [transactions, setTransactions] = useState<string>("");
   const [token, setToken] = useState<string>("");
-  const [balance, setBalance] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   const getToken = async (): Promise<void> => {
@@ -30,8 +29,7 @@ function Paypal() {
     try {
       const response = await fetch(url);
       if (response.ok) {
-        const transactions: string = await response.json();
-        // setTransactions(transactions);
+        const transactions = await response.json() as unknown;
         console.log(transactions);
       }
       else {
@@ -48,8 +46,7 @@ function Paypal() {
     try {
       const response = await fetch(url);
       if (response.ok) {
-        const balance: string = await response.json();
-        // setBalance(balance);
+        const balance = await response.json() as unknown;
         console.log(balance);
         
       }
@@ -70,11 +67,9 @@ function Paypal() {
       </div>
       <div className="flex">
         <button className="border p-1 mr-5" onClick={getTransactions}>Get transactions</button>
-        <div>Transactions: { balance }</div>
       </div>
       <div className="flex mt-5">
         <button className="border p-1 mr-5" onClick={getBalance}>Get balance</button>
-        <div>Balance: { transactions }</div>
       </div>
       <div className="mt-5">{ errorMessage }</div>
     </div>

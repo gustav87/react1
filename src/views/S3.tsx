@@ -1,7 +1,7 @@
 import { CloudFile, UploadFileRequest } from '@/models/cloudStorage';
 import { useState } from 'react';
 
-const backend_url = import.meta.env.VITE_BACKEND_URL;
+const backend_url = import.meta.env.VITE_BACKEND_URL as string;
 
 function S3() {
   const [files, setFiles] = useState([] as CloudFile[]);
@@ -36,12 +36,12 @@ function S3() {
     </div>
   </>
 
-  async function sendTestS3() {
+  async function sendTestS3(): Promise<void> {
     const url = `${backend_url}/api/s3/test?token=${token}`;
     try {
       const res = await fetch(url);
       if (res.ok) {
-        const json = await res.json();
+        const json = await res.json() as string;
         console.log(json);
       }
       else {
@@ -53,12 +53,12 @@ function S3() {
     }
   }
 
-  async function listS3Files() {
+  async function listS3Files(): Promise<void> {
     const url = `${backend_url}/api/s3?token=${token}`;
     try {
       const res = await fetch(url);
       if (res.ok) {
-        const files: CloudFile[] = await res.json();
+        const files = await res.json() as CloudFile[];
         setFiles(files);
       }
       else {
@@ -70,18 +70,18 @@ function S3() {
     }
   }
 
-  async function uploadToS3() {
+  function uploadToS3(): void {
     const url = `${backend_url}/api/s3/upload?token=${token}`;
     if (!fileToUpload) return;
 
     try {
-      var reader = new FileReader();
+      const reader = new FileReader();
       reader.readAsDataURL(fileToUpload);
 
       // here we tell the reader what to do when it's done reading
       reader.onload = async (readerEvent) => {
-        var content = readerEvent?.target?.result as string;
-        const base64content = content?.split("base64,")[1];
+        const content = readerEvent.target?.result as string;
+        const base64content = content.split("base64,")[1];
         const data: UploadFileRequest = {
           name: fileToUpload.name,
           content: base64content
@@ -108,7 +108,7 @@ function S3() {
     }
   }
 
-  async function downloadFromS3(fileName: string) {
+  function downloadFromS3(fileName: string): void {
     const url = `${backend_url}/api/s3/download/${fileName}?token=${token}`;
     try {
       window.open(url);

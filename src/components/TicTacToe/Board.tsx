@@ -9,7 +9,7 @@ export interface BoardProps {
 
 function Board({reset}: PropsWithChildren<BoardProps>) {
   const [currentPlayer, setCurrentPlayer] = useState("X");
-  const [squares, setSquares] = useState(Array(9).fill(null));
+  const [squares, setSquares] = useState<Array<string | null>>(Array(9).fill(null));
   const [gameWon, setGameWon] = useState(false);
 
   const handleClick = (index: number) => {

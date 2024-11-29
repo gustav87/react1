@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 
 function App() {
   const [width, setWindowWidth] = useState(0);
+
   useEffect(() => {
     updateDimensions();
 
@@ -14,7 +15,6 @@ function App() {
   }, [])
 
   const updateDimensions = () => {
-    const width = window.innerWidth;
     setWindowWidth(width);
   }
 

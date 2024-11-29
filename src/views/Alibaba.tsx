@@ -1,7 +1,7 @@
 import { CloudFile } from '@/models/cloudStorage';
 import { useState } from 'react';
 
-const backend_url = import.meta.env.VITE_BACKEND_URLS;
+const backend_url = import.meta.env.VITE_BACKEND_URL as string;
 
 function Alibaba() {
   const [files, setFiles] = useState([] as CloudFile[]);
@@ -37,12 +37,12 @@ function Alibaba() {
     </div>
   </>
 
-  async function listAlibabaFiles() {
+  async function listAlibabaFiles(): Promise<void> {
     const url = `${backend_url}/api/alibaba?token=${token}`;
     try {
       const res = await fetch(url);
       if (res.ok) {
-        const files: CloudFile[] = await res.json();
+        const files = await res.json() as CloudFile[];
         setFiles(files);
       }
       else {
@@ -54,18 +54,18 @@ function Alibaba() {
     }
   }
 
-  async function uploadToAlibaba() {
+  function uploadToAlibaba(): void {
     const url = `${backend_url}/api/alibaba/upload?token=${token}`;
     if (!fileToUpload) return;
 
     try {
-      var reader = new FileReader();
+      const reader = new FileReader();
       reader.readAsDataURL(fileToUpload);
 
       // here we tell the reader what to do when it's done reading
       reader.onload = async (readerEvent) => {
-        var content = readerEvent?.target?.result as string;
-        const base64content = content?.split("base64,")[1];
+        const content = readerEvent.target?.result as string;
+        const base64content = content.split("base64,")[1];
         const data = {name: fileToUpload.name, content: base64content};
 
         const res = await fetch(url, {
@@ -89,7 +89,7 @@ function Alibaba() {
     }
   }
 
-  async function downloadFromAlibaba(fileName: string) {
+  function downloadFromAlibaba(fileName: string): void {
     const url = `${backend_url}/api/alibaba/download/${fileName}?token=${token}`;
     try {
       window.open(url);
@@ -98,7 +98,7 @@ function Alibaba() {
     }
   }
 
-  async function deleteFileOnAlibaba(fileName: string) {
+  async function deleteFileOnAlibaba(fileName: string): Promise<void> {
     const url = `${backend_url}/api/alibaba/${fileName}?token=${token}`;
     try {
       const res = await fetch(url, {

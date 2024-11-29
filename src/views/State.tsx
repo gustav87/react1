@@ -5,7 +5,7 @@ import { useState } from 'react';
 function State() {
   const [index, setIndex] = useState(0);
   const [colorState, setColorState] = useState("transparent");
-  let sculpture = sculptureList[index];
+  const sculpture = sculptureList[index];
 
   const resetState = () => {
     console.log(colorState);
