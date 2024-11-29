@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { createBrowserRouter, RouterProvider, Route } from "react-router";
 import ErrorPage from "./components/ErrorPage";
 import './index.css';
 import App from './App';
