@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router";
 import ErrorPage from "./components/ErrorPage";
 import './index.css';
 import App from './App';
@@ -9,63 +9,65 @@ import Projects from '@/views/Projects';
 import TicTacToe from '@/views/TicTacToe';
 import State from '@/views/State';
 import S3 from './views/S3';
-import { routes } from '@/models/routes';
+import { RouteNames } from '@/models/routes';
 import Login from './views/Login';
 import Alibaba from './views/Alibaba';
 import Paypal from './views/Paypal';
 import Test from './views/Test';
 
-const router = createBrowserRouter([
+const routes = [
   {
-    path: routes.HOME,
+    path: RouteNames.HOME,
     element: <App/>,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: routes.HOME,
+        path: RouteNames.HOME,
         element: <Frontpage/>,
       },
       {
-        path: routes.PROJECTS,
+        path: RouteNames.PROJECTS,
         element: <Projects/>,
         children: [
           {
-            path: routes.PROJECTS_TICTACTOE,
+            path: RouteNames.PROJECTS_TICTACTOE,
             element: <TicTacToe/>,
           },
           {
-            path: routes.PROJECTS_STATE,
+            path: RouteNames.PROJECTS_STATE,
             element: <State/>,
           },
           {
-            path: routes.PROJECTS_S3,
+            path: RouteNames.PROJECTS_S3,
             element: <S3/>,
           },
           {
-            path: routes.PROJECTS_ALIBABA,
+            path: RouteNames.PROJECTS_ALIBABA,
             element: <Alibaba/>,
           },
           {
-            path: routes.PROJECTS_PAYPAL,
+            path: RouteNames.PROJECTS_PAYPAL,
             element: <Paypal/>,
           },
           {
-            path: routes.PROJECTS_TEST,
+            path: RouteNames.PROJECTS_TEST,
             element: <Test/>,
           },
         ]
       },
       {
-        path: routes.CONTACT,
+        path: RouteNames.CONTACT,
         element: <div>Contact me</div>,
       },
       {
-        path: routes.LOGIN,
+        path: RouteNames.LOGIN,
         element: <Login/>,
       },
     ]
   }
-]);
+]
+
+const router = createBrowserRouter(routes);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
