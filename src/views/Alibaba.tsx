@@ -1,7 +1,7 @@
 import { CloudFile } from '@/models/cloudStorage';
 import { useState } from 'react';
 
-const backend_url = import.meta.env.VITE_BACKEND_URL;
+const backend_url = import.meta.env.VITE_BACKEND_URLS;
 
 function Alibaba() {
   const [files, setFiles] = useState([] as CloudFile[]);
