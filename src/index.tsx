@@ -14,6 +14,7 @@ import Login from './views/Login';
 import Alibaba from './views/Alibaba';
 import Paypal from './views/Paypal';
 import Test from './views/Test';
+import RouteNotFound from './components/RouteNotFound';
 
 const routes = [
   {
@@ -62,6 +63,10 @@ const routes = [
       {
         path: RouteNames.LOGIN,
         element: <Login/>,
+      },
+      {
+        path: RouteNames.NOT_FOUND,
+        element: <RouteNotFound/>
       },
     ]
   }
