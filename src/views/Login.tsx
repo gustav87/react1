@@ -3,20 +3,24 @@ import { useState } from 'react';
 
 const backend_url = import.meta.env.VITE_BACKEND_URL as string;
 
+type Credentials = {
+  username: string;
+  password: string;
+}
+
 function Login() {
+  const emptyCredentials = { username: "", password: "" } satisfies Credentials;
   const [responseMessage, setResponseMessage] = useState<string>("");
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [credentials, setCredentials] = useState<Credentials>(getEmptyCredentials());
   const [disabled, setDisabled] = useState<boolean>(false);
 
   const handleLogin = async () => {
     setDisabled(true);
     const url = `${backend_url}/api/account/log-in`;
-    const data = getInputValues();
 
     const options = {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify(credentials),
       headers: {
         "Content-Type": "application/json"
       }
@@ -26,7 +30,8 @@ function Login() {
       const res = await fetch(url, options);
       const text = await res.text();
       if (res.ok) {
-        window.sessionStorage.setItem("token", text);
+        window.localStorage.setItem("token", text);
+        window.localStorage.setItem("username", credentials.username);
         setResponseMessage("Log in successful!");
       }
       else {
@@ -42,11 +47,10 @@ function Login() {
   const handleSignUp = async () => {
     setDisabled(true);
     const url = `${backend_url}/api/account/create-account`;
-    const data = getInputValues();
 
     const options = {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify(credentials),
       headers: {
         "Content-Type": "application/json"
       }
@@ -63,25 +67,17 @@ function Login() {
     }
   }
 
-  const handleUsernameInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setUsername(e.target.value);
+  const handleSetCredentials = (credentials: Credentials): void => {
+    setCredentials(credentials);
   }
-
-  const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setPassword(e.target.value);
-  }
-
-  const getInputValues = (): { username: string, password: string } => {
-    return {
-      username,
-      password,
-    };
-  };
 
   const resetLoginForm = (): void => {
     setDisabled(false);
-    setUsername("");
-    setPassword("");
+    setCredentials(getEmptyCredentials());
+  }
+
+  function getEmptyCredentials(): Credentials {
+    return { ...emptyCredentials };
   }
 
   const submitButtonClasses = `mr-5 react1-clickable cursor-pointer border-solid border-2 p-2 border-slate-600 ${disabled ? "react1-login__disabled": ""}`;
@@ -89,9 +85,9 @@ function Login() {
   return <>
     <div>
       <label htmlFor="username">Username</label>
-      <input className="w-full block text-black" id="username" type="text" placeholder="Username" onChange={handleUsernameInput} />
+      <input className="w-full block text-black" id="username" type="text" placeholder="Username" value={credentials.username} onChange={(e) => handleSetCredentials({ ...credentials, username: e.target.value })} />
       <label htmlFor="password">Password</label>
-      <input className="w-full block text-black" id="password" type="password" placeholder="Password" onChange={handlePasswordInput} />
+      <input className="w-full block text-black" id="password" type="password" placeholder="Password" value={credentials.password} onChange={(e) => handleSetCredentials({ ...credentials, password: e.target.value })} />
       <div className="mt-5">
         <input type="submit" value="Log In" className={submitButtonClasses} onClick={handleLogin} />
         <input type="submit" value="Create Account" className={submitButtonClasses} onClick={handleSignUp} />
