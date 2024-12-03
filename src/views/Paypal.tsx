@@ -3,7 +3,6 @@ import { useState } from 'react';
 const backend_url = import.meta.env.VITE_BACKEND_URL as string;
 
 function Paypal() {
-  // const token = window.sessionStorage.getItem("token");
   const [token, setToken] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
 

@@ -1,13 +1,14 @@
-import { getLocalStorageUsername, handleLogout } from '@/helpers/helper';
 import './NavBar.css';
 import { RouteNames } from '@/models/routes';
 import { Link, useLocation } from "react-router";
+import useLoginStore from '@/store/loginStore';
 
 function NavBar() {
   const path = useLocation().pathname;
   const setSelected = (incoming: string): string => path.includes(incoming) ? "text-blue-600 react1-navbar__disabled" : "";
   const navItemStyle = "p-2 react1-clickable";
-  const username = getLocalStorageUsername();
+  const username = useLoginStore((state) => state.username);
+  const resetLogin = useLoginStore((state) => state.resetLogin);
 
   return (
     <div className="bg-zinc-700 mb-5 uppercase font-bold text-white">
@@ -30,7 +31,7 @@ function NavBar() {
         {username && (
           <div className="ml-auto mr-8 flex">
             <div className="p-2">[{username}]</div>
-            <li className={`cursor-pointer ${navItemStyle}`} onClick={handleLogout}>
+            <li className={`cursor-pointer ${navItemStyle}`} onClick={resetLogin}>
               Log out
             </li>
           </div>

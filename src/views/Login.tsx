@@ -1,3 +1,4 @@
+import useLoginStore from '@/store/loginStore';
 import './Login.css';
 import { useState } from 'react';
 
@@ -13,6 +14,8 @@ function Login() {
   const [responseMessage, setResponseMessage] = useState<string>("");
   const [credentials, setCredentials] = useState<Credentials>(getEmptyCredentials());
   const [disabled, setDisabled] = useState<boolean>(false);
+  const setUserToken = useLoginStore((state) => state.setUserToken);
+  const setUsername = useLoginStore((state) => state.setUsername);
 
   const handleLogin = async () => {
     setDisabled(true);
@@ -30,8 +33,8 @@ function Login() {
       const res = await fetch(url, options);
       const text = await res.text();
       if (res.ok) {
-        window.localStorage.setItem("token", text);
-        window.localStorage.setItem("username", credentials.username);
+        setUserToken(text);
+        setUsername(credentials.username);
         setResponseMessage("Log in successful!");
       }
       else {
