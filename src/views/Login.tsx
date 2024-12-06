@@ -1,21 +1,20 @@
 import useLoginStore from '@/store/loginStore';
-import './Login.css';
 import { useState } from 'react';
 
 const backend_url = import.meta.env.VITE_BACKEND_URL as string;
 
-type Credentials = {
+type LoginData = {
   username: string;
   password: string;
 }
 
 function Login() {
-  const emptyCredentials = { username: "", password: "" } satisfies Credentials;
+  const emptyCredentials = { username: "", password: "" } satisfies LoginData;
   const [responseMessage, setResponseMessage] = useState<string>("");
-  const [credentials, setCredentials] = useState<Credentials>(getEmptyCredentials());
+  const [credentials, setCredentials] = useState<LoginData>(getEmptyCredentials());
   const [disabled, setDisabled] = useState<boolean>(false);
-  const setUserToken = useLoginStore((state) => state.setUserToken);
-  const setUsername = useLoginStore((state) => state.setUsername);
+  const loginState = useLoginStore();
+  // const setUserToken = useLoginStore((state) => state.setUserToken);
 
   const handleLogin = async () => {
     setDisabled(true);
@@ -33,8 +32,7 @@ function Login() {
       const res = await fetch(url, options);
       const text = await res.text();
       if (res.ok) {
-        setUserToken(text);
-        setUsername(credentials.username);
+        loginState.onLoginSuccess({ username: credentials.username, userToken: text });
         setResponseMessage("Log in successful!");
       }
       else {
@@ -47,30 +45,7 @@ function Login() {
     }
   }
 
-  const handleSignUp = async () => {
-    setDisabled(true);
-    const url = `${backend_url}/api/account/create-account`;
-
-    const options = {
-      method: "POST",
-      body: JSON.stringify(credentials),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
-
-    try {
-      const res = await fetch(url, options);
-      const text = await res.text();
-      setResponseMessage(text);
-    } catch(err: unknown) {
-      console.error(err);
-    } finally {
-      resetLoginForm();
-    }
-  }
-
-  const handleSetCredentials = (credentials: Credentials): void => {
+  const handleSetCredentials = (credentials: LoginData): void => {
     setCredentials(credentials);
   }
 
@@ -79,11 +54,12 @@ function Login() {
     setCredentials(getEmptyCredentials());
   }
 
-  function getEmptyCredentials(): Credentials {
+  function getEmptyCredentials(): LoginData {
     return { ...emptyCredentials };
   }
 
-  const submitButtonClasses = `mr-5 react1-clickable cursor-pointer border-solid border-2 p-2 border-slate-600 ${disabled ? "react1-login__disabled": ""}`;
+  const disabledClasses =  "pointer-events-none cursor-default text-gray-600";
+  const submitButtonClasses = `mr-5 react1-clickable cursor-pointer border-solid border-2 p-2 border-slate-600 ${disabled ? disabledClasses : ""}`;
 
   return <>
     <div>
@@ -93,7 +69,6 @@ function Login() {
       <input className="w-full block text-black" id="password" type="password" placeholder="Password" value={credentials.password} onChange={(e) => handleSetCredentials({ ...credentials, password: e.target.value })} />
       <div className="mt-5">
         <input type="submit" value="Log In" className={submitButtonClasses} onClick={handleLogin} />
-        <input type="submit" value="Create Account" className={submitButtonClasses} onClick={handleSignUp} />
       </div>
     </div>
     <div className="mt-5 font-bold">

@@ -10,6 +10,8 @@ function NavBar() {
   const username = useLoginStore((state) => state.username);
   const resetLogin = useLoginStore((state) => state.resetLogin);
 
+  const isLoggedIn = !!username;
+
   return (
     <div className="bg-zinc-700 mb-5 uppercase font-bold text-white">
       <ul className="flex items-center h-20">
@@ -23,12 +25,19 @@ function NavBar() {
           <Link to={RouteNames.CONTACT} className={`${navItemStyle} ${setSelected(RouteNames.CONTACT)}`}>Contact</Link>
         </li>
         <li className="mr-6">
-          <Link to={RouteNames.LOGIN} className={`${navItemStyle} ${setSelected(RouteNames.LOGIN)}`}>Log in</Link>
-        </li>
-        <li className="mr-6">
           <Link to={"#"} className="text-gray-400 cursor-not-allowed">Disabled</Link>
         </li>
-        {username && (
+        {!isLoggedIn && (
+          <div className="ml-auto flex mr-8">
+            <li className="mr-6">
+              <Link to={RouteNames.LOGIN} className={`${navItemStyle} ${setSelected(RouteNames.LOGIN)}`}>Log in</Link>
+            </li>
+            <li>
+              <Link to={RouteNames.SIGN_UP} className={`${navItemStyle} ${setSelected(RouteNames.SIGN_UP)}`}>Sign up</Link>
+            </li>
+          </div>
+        )}
+        {isLoggedIn && (
           <div className="ml-auto mr-8 flex">
             <div className="p-2">[{username}]</div>
             <li className={`cursor-pointer ${navItemStyle}`} onClick={resetLogin}>

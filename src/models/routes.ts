@@ -10,4 +10,5 @@ export enum RouteNames {
   PROJECTS_ALIBABA = "/projects/alibaba",
   PROJECTS_PAYPAL = "/projects/paypal",
   PROJECTS_TEST = "/projects/test",
+  SIGN_UP = "/signup",
 };
