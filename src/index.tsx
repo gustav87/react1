@@ -16,12 +16,13 @@ import Paypal from './views/Paypal';
 import Test from './views/Test';
 import RouteNotFound from './components/RouteNotFound';
 import SignUp from './views/SignUp';
+import Contact from './views/Contact';
 
 const routes = [
   {
     path: RouteNames.HOME,
     element: <App/>,
-    errorElement: <ErrorPage />,
+    errorElement: <ErrorPage/>,
     children: [
       {
         path: RouteNames.HOME,
@@ -59,7 +60,7 @@ const routes = [
       },
       {
         path: RouteNames.CONTACT,
-        element: <div>Contact me</div>,
+        element: <Contact/>
       },
       {
         path: RouteNames.NOT_FOUND,

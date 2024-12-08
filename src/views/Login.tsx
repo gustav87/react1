@@ -41,7 +41,7 @@ function Login() {
     } catch(err: unknown) {
       console.error(err);
     } finally {
-      resetLoginForm();      
+      resetLoginForm();
     }
   }
 
