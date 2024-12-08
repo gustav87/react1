@@ -90,7 +90,7 @@ function SignUp() {
 
       <div className="mt-5 flex justify-around">
         <input type="submit" value="Sign Up" className={submitButtonClasses} onClick={handleSignUp} />
-        <input type="submit" value="Reset" className={submitButtonClasses} onClick={() => setCredentials(getEmptySignUpData())} />
+        <input type="submit" value="Reset" className={submitButtonClasses} onClick={resetForm} />
       </div>
     </div>
     <div className="mt-5 font-bold">

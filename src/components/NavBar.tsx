@@ -24,9 +24,6 @@ function NavBar() {
         <li className="mr-6">
           <Link to={RouteNames.CONTACT} className={`${navItemStyle} ${setSelected(RouteNames.CONTACT)}`}>Contact</Link>
         </li>
-        <li className="mr-6">
-          <Link to={"#"} className="text-gray-400 cursor-not-allowed">Disabled</Link>
-        </li>
         {!isLoggedIn && (
           <div className="ml-auto flex mr-8">
             <li className="mr-6">

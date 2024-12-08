@@ -16,7 +16,7 @@ function Contact() {
 
   const handleSubmit = async () => {
     setDisabled(true);
-    const url = `${backend_url}/api/contact2`;
+    const url = `${backend_url}/api/contact`;
 
     const options = {
       method: "POST",
@@ -52,6 +52,11 @@ function Contact() {
     return { ...emptyContactData };
   }
 
+  const resetForm = (): void => {
+    setDisabled(false);
+    setContactData(getEmptyContactData());
+  }
+
   const disabledClasses =  "pointer-events-none cursor-default text-gray-600";
   const submitButtonClasses = `mr-5 react1-clickable cursor-pointer border-solid border-2 p-2 border-slate-600 ${disabled ? disabledClasses : ""}`;
 
@@ -68,6 +73,7 @@ function Contact() {
 
       <div className="mt-5">
         <input type="submit" value="Send Message" className={submitButtonClasses} onClick={handleSubmit} />
+        <input type="submit" value="Reset" className={submitButtonClasses} onClick={resetForm} />
       </div>
     </div>
     <div className="mt-5 font-bold">
