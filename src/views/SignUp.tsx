@@ -1,4 +1,4 @@
-import { BadRequestObjectResult, SignUpValidationErrors } from '@/models/backend';
+import { SignUpValidationErrors, ValidationResult } from '@/models/backend';
 import { SignUpData } from '@/models/login';
 import { useState } from 'react';
 
@@ -30,7 +30,7 @@ function SignUp() {
         setResponseMessage(text);
       }
       else {
-        const json = await res.json() as BadRequestObjectResult;
+        const json = await res.json() as ValidationResult;
         if (json.title === "One or more validation errors occurred.") {
           setSignUpValidationErrors(json.errors);
         }
