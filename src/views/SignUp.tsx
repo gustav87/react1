@@ -7,7 +7,7 @@ const backend_url = import.meta.env.VITE_BACKEND_URL as string;
 function SignUp() {
   const emptySignUpData = { username: "", password: "", favoriteAnimal: "", favoriteColor: "", favoriteNumber: 0 } satisfies SignUpData;
   const [responseMessage, setResponseMessage] = useState<string>("");
-  const [credentials, setCredentials] = useState<SignUpData>(getEmptySignUpData());
+  const [signUpData, setSignUpData] = useState<SignUpData>(getEmptySignUpData());
   const [disabled, setDisabled] = useState<boolean>(false);
   const [signUpValidationErrors, setSignUpValidationErrors] = useState<SignUpValidationErrors>({} as SignUpValidationErrors);
 
@@ -17,7 +17,7 @@ function SignUp() {
 
     const options = {
       method: "POST",
-      body: JSON.stringify(credentials),
+      body: JSON.stringify(signUpData),
       headers: {
         "Content-Type": "application/json"
       }
@@ -28,16 +28,27 @@ function SignUp() {
       if (res.ok) {
         const text = await res.text();
         setResponseMessage(text);
+        resetValidationErrors();
       }
-      else {
+      else if (res.status === 400) {
         const json = await res.json() as ValidationResult;
         if (json.title === "One or more validation errors occurred.") {
           setSignUpValidationErrors(json.errors);
         }
       }
+      else if (res.status === 401) {
+        const text = await res.text();
+        setResponseMessage(text);
+        resetValidationErrors();
+      }
+      else {
+        setResponseMessage("Something went wrong.");
+        resetValidationErrors();
+      }
     } catch(err: unknown) {
       console.error(err);
       setResponseMessage("Something went wrong.");
+      resetValidationErrors();
     } finally {
       resetForm();
     }
@@ -50,13 +61,17 @@ function SignUp() {
     </div>;
   }
 
-  const handleSetCredentials = (credentials: SignUpData): void => {
-    setCredentials(credentials);
+  const handleSetSignUpData = (signUpData: SignUpData): void => {
+    setSignUpData(signUpData);
   }
 
   const resetForm = (): void => {
     setDisabled(false);
-    setCredentials({ ...credentials, password: "" });
+    setSignUpData({ ...signUpData, password: "" });
+  }
+
+  const resetValidationErrors = (): void => {
+    setSignUpValidationErrors({} as SignUpValidationErrors);
   }
 
   function getEmptySignUpData(): SignUpData {
@@ -69,23 +84,23 @@ function SignUp() {
   return <>
     <div>
       <label htmlFor="username">Username</label>
-      <input className="w-full block text-black" id="username" type="text" placeholder="Username" value={credentials.username} onChange={(e) => handleSetCredentials({ ...credentials, username: e.target.value })} />
+      <input className="w-full block text-black" id="username" type="text" placeholder="Username" value={signUpData.username} onChange={(e) => handleSetSignUpData({ ...signUpData, username: e.target.value })} />
       <div>{renderSignUpValidationErrors(signUpValidationErrors.Username)}</div>
 
       <label htmlFor="password">Password</label>
-      <input className="w-full block text-black" id="password" type="password" placeholder="Password" value={credentials.password} onChange={(e) => handleSetCredentials({ ...credentials, password: e.target.value })} />
+      <input className="w-full block text-black" id="password" type="password" placeholder="Password" value={signUpData.password} onChange={(e) => handleSetSignUpData({ ...signUpData, password: e.target.value })} />
       <div>{renderSignUpValidationErrors(signUpValidationErrors.Password)}</div>
 
       <label htmlFor="password">Favorite animal</label>
-      <input className="w-full block text-black" id="favoriteAnimal" type="text" placeholder="Favorite animal" value={credentials.favoriteAnimal} onChange={(e) => handleSetCredentials({ ...credentials, favoriteAnimal: e.target.value })} />
+      <input className="w-full block text-black" id="favoriteAnimal" type="text" placeholder="Favorite animal" value={signUpData.favoriteAnimal} onChange={(e) => handleSetSignUpData({ ...signUpData, favoriteAnimal: e.target.value })} />
       <div>{renderSignUpValidationErrors(signUpValidationErrors.FavoriteAnimal)}</div>
 
       <label htmlFor="password">Favorite color</label>
-      <input className="w-full block text-black" id="favoriteColor" type="text" placeholder="Favorite color" value={credentials.favoriteColor} onChange={(e) => handleSetCredentials({ ...credentials, favoriteColor: e.target.value })} />
+      <input className="w-full block text-black" id="favoriteColor" type="text" placeholder="Favorite color" value={signUpData.favoriteColor} onChange={(e) => handleSetSignUpData({ ...signUpData, favoriteColor: e.target.value })} />
       <div>{renderSignUpValidationErrors(signUpValidationErrors.FavoriteColor)}</div>
 
       <label htmlFor="password">Favorite number</label>
-      <input className="w-full block text-black" id="favoriteNumber" type="number" placeholder="Favorite number" value={credentials.favoriteNumber} onChange={(e) => handleSetCredentials({ ...credentials, favoriteNumber: parseInt(e.target.value) })} />
+      <input className="w-full block text-black" id="favoriteNumber" type="number" placeholder="Favorite number" value={signUpData.favoriteNumber} onChange={(e) => handleSetSignUpData({ ...signUpData, favoriteNumber: parseInt(e.target.value) })} />
       <div>{renderSignUpValidationErrors(signUpValidationErrors.FavoriteNumber)}</div>
 
       <div className="mt-5 flex justify-around">
