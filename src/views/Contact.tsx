@@ -18,7 +18,7 @@ function Contact() {
 
   const handleSubmit = async () => {
     setDisabled(true);
-    const url = `${backend_url}/api/contact`;
+    const url = `${backend_url}/api/contact2`;
 
     const options = {
       method: "POST",
@@ -39,6 +39,9 @@ function Contact() {
       else if (res.status === 400) {
         const json = await res.json() as ContactFluentValidationResult;
         setContactValidationErrors(json);
+      }
+      else {
+        setResponseMessage("Something went wrong.");
       }
     } catch(err: unknown) {
       console.error(err);
