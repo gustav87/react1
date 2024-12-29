@@ -29,28 +29,31 @@ function SignUp() {
         const text = await res.text();
         setResponseMessage(text);
         resetValidationErrors();
+        resetForm();
       }
       else if (res.status === 400) {
         const json = await res.json() as ValidationResult;
         if (json.title === "One or more validation errors occurred.") {
           setSignUpValidationErrors(json.errors);
+          resetPassword();
         }
       }
       else if (res.status === 401) {
         const text = await res.text();
         setResponseMessage(text);
         resetValidationErrors();
+        resetPassword();
       }
       else {
         setResponseMessage("Something went wrong.");
         resetValidationErrors();
+        resetPassword();
       }
     } catch(err: unknown) {
       console.error(err);
       setResponseMessage("Something went wrong.");
       resetValidationErrors();
-    } finally {
-      resetForm();
+      resetPassword();
     }
   }
 
@@ -67,6 +70,11 @@ function SignUp() {
 
   const resetForm = (): void => {
     setDisabled(false);
+    setSignUpData(getEmptySignUpData());
+  }
+
+  const resetPassword = (): void => {
+    setDisabled(false);
     setSignUpData({ ...signUpData, password: "" });
   }
 
@@ -75,6 +83,8 @@ function SignUp() {
   }
 
   function getEmptySignUpData(): SignUpData {
+    console.log(emptySignUpData);
+    
     return { ...emptySignUpData };
   }
 
