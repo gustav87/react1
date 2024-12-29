@@ -3,25 +3,7 @@ import { useState } from 'react';
 const backend_url = import.meta.env.VITE_BACKEND_URL as string;
 
 function Paypal() {
-  const [token, setToken] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
-
-  const getToken = async (): Promise<void> => {
-    const url = `${backend_url}/api/paypal/token`;
-    try {
-      const response = await fetch(url);
-      if (response.ok) {
-        const token: string = await response.text();
-        setToken(token);
-      }
-      else {
-        const errorMessage = await response.text();
-        setErrorMessage(errorMessage);
-      }
-    } catch (e: unknown) {
-      console.error(e);
-    }
-  }
 
   const getTransactions = async (): Promise<void> => {
     const url = `${backend_url}/api/paypal/transactions`;
@@ -60,10 +42,6 @@ function Paypal() {
 
   return <>
     <div>
-      <div className="flex">
-        <button className="border p-1 mr-5" onClick={getToken}>Get token</button>
-        <div>Token: { token }</div>
-      </div>
       <div className="flex">
         <button className="border p-1 mr-5" onClick={getTransactions}>Get transactions</button>
       </div>
