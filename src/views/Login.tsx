@@ -16,7 +16,7 @@ function Login() {
   const loginState = useLoginStore();
   // const setUserToken = useLoginStore((state) => state.setUserToken);
 
-  const handleLogin = async () => {
+  const handleLogin = async (): Promise<void> => {
     setDisabled(true);
     const url = `${backend_url}/api/account/log-in`;
 
@@ -42,6 +42,28 @@ function Login() {
       console.error(err);
     } finally {
       resetLoginForm();
+    }
+  }
+
+  const getCookie = async (): Promise<void> => {
+    const url = `${backend_url}/api/cookie`;
+
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include" as RequestCredentials,
+    };
+
+    try {
+      const res = await fetch(url, options);
+      if (res.ok) {
+        const text = await res.text();
+        console.log(text);
+      }
+    } catch(err: unknown) {
+      console.error(err);
     }
   }
 
@@ -73,6 +95,9 @@ function Login() {
     </div>
     <div className="mt-5 font-bold">
       { responseMessage }
+    </div>
+    <div className="mt-5 font-bold">
+      <div className="react1-clickable" onClick={getCookie}>Get cookie</div>
     </div>
   </>
 }

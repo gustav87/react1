@@ -21,6 +21,10 @@
   color: #61dafb;
 }
 
+.react1-clickable {
+  cursor: pointer;
+}
+
 /* text-blue-600 */
 .react1-clickable:hover {
   color: rgb(37 99 235);

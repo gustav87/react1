@@ -24,8 +24,15 @@ function Test() {
 
   async function sendTestBackendWeather(): Promise<void> {
     const url = `${backend_url}/api/test/weather`;
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include" as RequestCredentials,
+    };
     try {
-      const res = await fetch(url);
+      const res = await fetch(url, options);
       const json = await res.json() as { date: string, summary: string, temperatureC: number, temperatureF: number };
       console.log(json);
     } catch (e: unknown) {
